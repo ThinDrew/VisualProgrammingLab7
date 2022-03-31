@@ -1,0 +1,131 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Lab_7.ViewModels"
+		xmlns:model="using:Lab_7.Models"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="450"
+		MinWidth="650" MinHeight="450" Width="650" Height="450"
+        x:Class="Lab_7.Views.MainWindow"
+        Icon="/Assets/ProgressControlIcon.png"
+        Title="Контроль успеваемости">
+
+	<Window.Styles>
+		<Style Selector="Button.s1">
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="DataGridCell.cntr">
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+		</Style>
+	</Window.Styles>
+
+	<Grid RowDefinitions="Auto, *, Auto, Auto" ColumnDefinitions="*">
+
+		<Menu Grid.Row="0">
+			<MenuItem Header="File">
+				<MenuItem Header="Open" Name="OpenFileButton"/>
+				<MenuItem Header="Save" Name="SaveFileButton"/>
+				<Separator/>
+				<MenuItem Header="Exit" Name="ExitButton"/>
+			</MenuItem>
+			<MenuItem Click="ClickEventAboutDialog" Header="About"/>
+		</Menu>
+		
+		<DataGrid Grid.Row="1"
+			HorizontalAlignment="Stretch"
+			Items="{Binding Students}"
+			AutoGenerateColumns="False"
+			GridLinesVisibility="All"
+			>
+
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="ФИО" Binding="{Binding Name}"/>
+				
+				<DataGridTemplateColumn Header="1">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Subject[0].Mark}" Foreground="{Binding Subject[0].Background}" TextAlignment="Center"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+					<DataGridTemplateColumn.CellEditingTemplate>
+						<DataTemplate>
+							<TextBox Text="{Binding Subject[0].Mark}" LostFocus="EventEditEnding"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellEditingTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="2">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Subject[1].Mark}" Foreground="{Binding Subject[1].Background}" TextAlignment="Center"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+					<DataGridTemplateColumn.CellEditingTemplate>
+						<DataTemplate>
+							<TextBox Text="{Binding Subject[1].Mark}" LostFocus="EventEditEnding"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellEditingTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="3">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Subject[2].Mark}" Foreground="{Binding Subject[2].Background}" TextAlignment="Center"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+					<DataGridTemplateColumn.CellEditingTemplate>
+						<DataTemplate>
+							<TextBox Text="{Binding Subject[2].Mark}" LostFocus="EventEditEnding"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellEditingTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="4">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Subject[3].Mark}" Foreground="{Binding Subject[3].Background}" TextAlignment="Center"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+					<DataGridTemplateColumn.CellEditingTemplate>
+						<DataTemplate>
+							<TextBox Text="{Binding Subject[3].Mark}" LostFocus="EventEditEnding" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellEditingTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="5">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Subject[4].Mark}" Foreground="{Binding Subject[4].Background}" TextAlignment="Center"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+					<DataGridTemplateColumn.CellEditingTemplate>
+						<DataTemplate>
+							<TextBox Text="{Binding Subject[4].Mark}" LostFocus="EventEditEnding"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellEditingTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="Средний балл">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding AverageValue}" Foreground="{Binding Background}" TextAlignment="Center"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				
+				<DataGridCheckBoxColumn Header="Удалить?" Binding="{Binding IsWillDelete}"/>
+				
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<Grid Grid.Row="3" ColumnDefinitions="*, *">
+			<Button Content="Добавить" Classes="s1" Command="{Binding AddNewStudent}"/>
+			<Button Content="Удалить" Classes="s1" Grid.Column="1" Command="{Binding DeleteSelectedStudents}"/>
+		</Grid>
+		
+	</Grid>
+	
+</Window>
